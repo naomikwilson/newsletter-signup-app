@@ -1,0 +1,76 @@
+
+
+/*option 1 */
+    body { background-color: #dcc7aa; 
+      }
+
+  /*option 2 */
+  /*background-image: url('img1.webp');
+        background-size: cover; */
+      /* Dropdown Button */
+.dropbtn {
+    background-color: #f7882f;
+    color: white;
+    padding:  16px 36px 16px 36px;
+    font-size: 20px;
+    border: none;
+  }
+  
+  /* The container <div> - needed to position the dropdown content */
+  .dropdown {
+    position: relative;
+    display: inline-block;
+    margin-left: 90%;
+
+  }
+  
+  /* Dropdown Content (Hidden by Default) */
+  .dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: 	#e2e0e0;
+    min-width: 160px;
+    
+    z-index: 1;
+  }
+  
+  /* Links inside the dropdown */
+  .dropdown-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+  }
+  
+  /* Change color of dropdown links on hover */
+  .dropdown-content a:hover {background-color: #f7c331;}
+  
+  /* Show the dropdown menu on hover */
+  .dropdown:hover .dropdown-content {display: block;}
+  
+  /* Change the background color of the dropdown button when the dropdown content is shown */
+  .dropdown:hover .dropbtn {background-color: #f7882f;}
+
+  /* Homepage block */
+  .block_1 {
+    background-color: #f7882f; opacity: 90%; color: black; margin-right: 70%;margin-left: 2%; padding-bottom: 1%;  padding-top: 0.5%
+  }
+
+  .intro_block {margin-left:55%; margin-top: 13%;margin-left:55%; margin-right: 3%;}
+
+  #introduction { color: black;}
+
+ .introduction {font-size: 45px; letter-spacing: 8px;}
+
+  #intro_paragraph {color: black; background-color: #f7882f; margin-top: -4%; opacity: 90%; padding: 30px 30px 30px 30px}
+
+#learn_more {background-color: #f7882f;
+  color: black;
+  padding:  10px 30px 10px 30px;
+  font-size: 16px;
+  border: none; border-radius: 5px;}
+
+#footer {margin-top: 11%;}
+
+.match_icon {margin-left: 30px;margin-top: 20px; border: solid white;}
+  
