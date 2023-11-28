@@ -4,7 +4,7 @@ from historical_events import get_fact
 app = Flask(__name__)
 
 
-@app.post("/")
+@app.post("/page_to_put_it_on")
 def fun_fact_post():
     year, fact = get_fact()
     return render_template("page_to_put_it_on.html", fact=fact, year=year)
