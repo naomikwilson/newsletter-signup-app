@@ -13,11 +13,11 @@
     be present on every page, at the top.-->
 	
     <div class="dropdown">
-      <a href="homepage.html"><button class="dropbtn">Home</button></a>
+      <a href="{{url_for('home')}}"><button class="dropbtn">Menu</button></a>
       <div class="dropdown-content">
-        <a href="about_us.html">About us</a>
-        <a href="Log_in.html">Log in</a>
-        <a href="matches.html">Find newspaper matches</a>
+        <a href="{{url_for('about')}}">About us</a>
+        <a href="{{url_for('login')}}">Log in</a>
+        <a href="{{url_for('matches')}}">Find newspaper matches</a>
       </div>
       </div>
       <div class="block_1">
