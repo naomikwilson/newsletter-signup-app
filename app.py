@@ -3,8 +3,9 @@ from historical_events import get_fact
 
 app = Flask(__name__)
 
+@
 
-@app.post("/homepage")
+@app.get("/homepage")
 def historical_fact_post():
     year, fact = get_fact()
     return render_template("homepage.html", fact=fact, year=year)
