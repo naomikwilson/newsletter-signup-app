@@ -17,5 +17,10 @@ def historical_fact_post():
 @app.errorhandler(404)
 def page_not_found(e):
     return "Not found. 😭"
+
+@app.route("/about")
+def about():
+    return render_template('about_us.html')
+
 if __name__ == "__main__":
     app.run(debug=True,port=5001)
