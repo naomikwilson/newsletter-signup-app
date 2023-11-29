@@ -3,9 +3,8 @@ from historical_events import get_fact
 
 app = Flask(__name__)
 
-@
 
-@app.get("/homepage")
+@app.get("/homepage.html")
 def historical_fact_post():
     year, fact = get_fact()
     return render_template("homepage.html", fact=fact, year=year)
@@ -18,3 +17,5 @@ def historical_fact_post():
 @app.errorhandler(404)
 def page_not_found(e):
     return "Not found. 😭"
+if __name__ == "__main__":
+    app.run(debug=True,port=5001)
