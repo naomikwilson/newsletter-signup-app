@@ -7,7 +7,7 @@ app = Flask(__name__)
 @app.route("/")
 def historical_fact_post():
     year, fact = get_fact()
-    return ("homepage.html", fact=fact, year=year)
+    return render_template("homepage.html", fact=fact, year=year)
     # on page_to_put_it_on.html, we'd put something like:
     # <p> Historical fact: on this month and day in year {{ year }}, {{ fact }} </p>
 
