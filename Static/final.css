@@ -1,13 +1,7 @@
 
 
-/*option 1 */
-    body { background-color: #dcc7aa; 
-      }
 
-  /*option 2 */
-  /*background-image: url('img1.webp');
-        background-size: cover; */
-      /* Dropdown Button */
+
 .dropbtn {
     background-color: #f7882f;
     color: white;
@@ -76,4 +70,5 @@
 #footer {margin-top: 11%;}
 
 .match_icon {margin-left: 30px;margin-top: 20px; border: solid white;border-radius: 35px;}
-  
+
+form {size: 500px;}
