@@ -16,19 +16,19 @@ def historical_fact_post():
 def page_not_found(e):
     return "Not found. 😭"
 
-@app.route("/about")
+@app.route("/about", endpoint = "about_page")
 def about():
     return render_template('about_us.html')
 
-@app.route("/home")
+@app.route("/home", endpoint = "home_page")
 def about():
     return render_template('homepage.html')
 
-@app.route("/login")
+@app.route("/login", endpoint = "log_in_page")
 def about():
     return render_template('Log_in.html')
 
-@app.route("/matches")
+@app.route("/matches", endpoint = "matches_page")
 def about():
     return render_template('matches.html')
 
