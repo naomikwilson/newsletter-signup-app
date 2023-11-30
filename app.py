@@ -20,6 +20,10 @@ def page_not_found(e):
 def about():
     return render_template('about_us.html')
 
+@app.route("/home")
+def about():
+    return render_template('homepage.html')
+
 @app.route("/login")
 def about():
     return render_template('Log_in.html')
@@ -28,9 +32,6 @@ def about():
 def about():
     return render_template('matches.html')
 
-@app.route("/home")
-def about():
-    return render_template('homepage.html')
 
 if __name__ == "__main__":
     app.run(debug=True,port=5001)

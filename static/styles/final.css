@@ -2,6 +2,18 @@
   background-image: url(../images/homepage_background.jpg);
 }
 
+#aboutus-body{
+  background-image: url(../images/AboutUs_background.jpg);
+}
+
+#matches-body{
+  background-image: url(../images/Matches_background.jpg);
+}
+
+#login-body{
+  background-image: url(../images/LogInBackground.jpg);
+}
+
 
 
 .dropbtn {
