@@ -1,3 +1,5 @@
+# Reference: flask-app-demo repository by lzblack / Zhi Li on GitHub
+
 from flask import Flask, redirect, render_template, request, g
 import sqlite3
 
