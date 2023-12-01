@@ -19,7 +19,8 @@ def create_table():
         """
         CREATE TABLE IF NOT EXISTS users (
             user_id INTEGER PRIMARY KEY AUTOINCREMENT,
-            email TEXT NOT NULL
+            username TEXT NOT NULL,
+            hashed_password TEXT NOT NULL
         )
     """
     )
