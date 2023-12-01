@@ -9,13 +9,6 @@ def historical_fact_post():
     year, fact = get_fact()
     return render_template("homepage.html", fact=fact, year=year)
 
-"""
-404 Handling
-"""
-@app.errorhandler(404)
-def page_not_found(e):
-    return "Not found. 😭"
-
 @app.route("/about", endpoint = "about_page")
 def about():
     return render_template('about_us.html')
@@ -31,6 +24,13 @@ def about():
 @app.route("/matches", endpoint = "matches_page")
 def about():
     return render_template('matches.html')
+
+"""
+404 Handling
+"""
+@app.errorhandler(404)
+def page_not_found(e):
+    return "Not found. 😭"
 
 
 if __name__ == "__main__":
