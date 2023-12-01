@@ -5,6 +5,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>About Us</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='styles/final.css')}}">
+    <style>
+    @keyframes fadeInAnimation {
+      0% {
+          opacity: 0;
+      }
+      100% {
+          opacity: 100%;
+      }
+  }</style>
+
 </head>
 <body id="aboutus-body">
     <!-- Your HTML goes here -->
@@ -12,34 +22,56 @@
     be present on every page, at the top.-->
 	
     <div class="dropdown">
-      <a href="{{url_for('home_page')}}"><button class="dropbtn">Menu</button></a>
+      <a href="{{url_for('home_page')}}"><button class="dropbtn">Home</button></a>
       <div class="dropdown-content">
         <a href="{{url_for('about_page')}}">About us</a>
         <a href="{{url_for('log_in_page')}}">Log in</a>
         <a href="{{url_for('matches_page')}}">Find newspaper matches</a>
       </div>
       </div>
-      <div class="block_1">
-       <h1 style="font-size: 45px;"> &nbsp Newsletter Cloud</h1> 
-        <h3>&nbsp Created by Naomi Wilson and Justine Zhao</h3>
-      </div>
       
-      <div>
-    <a href="https://www.linkedin.com/in/justinezhao1/" target="_blank">
-        <div style="background-color: white; width: 180px; height: 250px">
-          <img src="https://media.licdn.com/dms/image/C4E03AQFm1bAjE78UQw/profile-displayphoto-shrink_400_400/0/1663111649625?e=1706745600&v=beta&t=kKDZB6bOi0XXQmCNTrHsT5V2dJGwvvlFT9olpsbXN78" alt="Justine's Linkedin Profile" style="width:142px;height:142px; border-radius: 100px; padding-left: 5%; padding-right: 5%;"></a>
-          <p style="background: grey;">
-WORDS
-          </p>
-        </div>
-
-        <a href="https://www.linkedin.com/in/naomiwilson2024/" target="_blank">
-          <div style="background-color: white; width: 180px; height: 250px">
-            <img src="https://media.licdn.com/dms/image/C4E03AQFAMnxABz8IGw/profile-displayphoto-shrink_400_400/0/1636673997716?e=1706745600&v=beta&t=iK9_T9IsuxPRfnyM8SZo1Yhas9DtrXN_RkG7j3gEzKE" alt="Naomi's Linkedin Profile" style="width:142px;height:142px; border-radius: 100px; padding-left: 5%; padding-right: 5%;"></a>
-            <p style="background: grey;">
-  WORDS
+      <img src="/static/images/brown_wall.png" alt="Aboutus_brownwallpaper" style="height: 940px;float: left; margin-top: -10%; margin-bottom: -10%; width: 400px" >
+ 
+      <div id="aboutus_background"></div>
+      <a href="https://www.linkedin.com/in/justinezhao1/" target="_blank" title="Justine's Linkedin">
+        <div id="justine_linkedin_block"> 
+          <br>
+              <br>
+            <img  src="https://media.licdn.com/dms/image/C4E03AQFm1bAjE78UQw/profile-displayphoto-shrink_400_400/0/1663111649625?e=1706745600&v=beta&t=kKDZB6bOi0XXQmCNTrHsT5V2dJGwvvlFT9olpsbXN78" alt="Justine's Linkedin Profile" class="linkedin"></a>
+            <p id="linkedin_justine_text">
+              Justine is currently a senior at Babson College, and 
             </p>
           </div>
-    
+          <a href="https://www.linkedin.com/in/naomiwilson2024/" target="_blank" title="Naomi's Linkedin">
+            <div id="Naomi_linkedin_block">
+              <br>
+              <br>
+              <img src="https://media.licdn.com/dms/image/C4E03AQFAMnxABz8IGw/profile-displayphoto-shrink_400_400/0/1636673997716?e=1706745600&v=beta&t=iK9_T9IsuxPRfnyM8SZo1Yhas9DtrXN_RkG7j3gEzKE" alt="Naomi's Linkedin Profile" class="linkedin"></a>
+              <p id="linkedin_Naomi_text">
+                Naomi is currently a senior at Babson College, and 
+              </p>
+            </div>
+            <hr style="width: 35%; color: bisque; margin-top: 7%;">
+
+            <div style="margin-right: 100%; margin-top: -100%; position: absolute;">
+              <h3>N</h3>
+              <h3>E</h3>
+              <h3>W</h3>
+              <h3>S</h3>
+              <h3>L</h3>
+              <h3>E</h3>
+              <h3>T</h3>
+              <h3>T</h3>
+              <h3>E</h3>
+              <h3>R</h3>
+              <br>
+              <h3>C</h3>
+              <h3>L</h3>
+              <h3>O</h3>
+              <h3>U</h3>
+              <h3>D</h3>
+            </div>
+      
+          
 </body>
 </html>

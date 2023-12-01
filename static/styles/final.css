@@ -1,13 +1,13 @@
 #home-body{
-  background-image: url(../images/homepage_background.jpg);
+  background-image: url(../images/homepage_background.jpg); background-size: cover 
 }
 
 #aboutus-body{
-  background-image: url(../images/AboutUs_background.jpg);
+  background-color: #EAD8DC; background-size: cover;
 }
 
 #matches-body{
-  background-image: url(../images/Matches_background.jpg);
+  background-image: url(../images/Matches_background.jpg)
 }
 
 #login-body{
@@ -86,3 +86,19 @@
 .match_icon {margin-left: 30px;margin-top: 20px; border: solid white;border-radius: 35px;}
 
 form {size: 500px;}
+
+#justine_linkedin_block {background-color: #FDFBF2; width: 200px; height: 280px;  text-align: center; margin-top: -27.50%; margin-left: 67%; border-radius: 20px; animation: fadeInAnimation ease 4s;
+  animation-iteration-count: 1;
+  animation-fill-mode: forwards; position: static;}
+
+#linkedin_justine_text {background: #E8D8DC;padding-left: 5%; padding-right: 5%;} 
+
+#Naomi_linkedin_block {background-color: #FDFBF2; width: 200px; height: 280px;  text-align: center; margin-top: -19.50%; margin-left: 40%; border-radius: 20px; animation: fadeInAnimation ease 4s;
+  animation-iteration-count: 1;
+  animation-fill-mode: forwards;position: static;}
+
+#linkedin_Naomi_text {background: #E8D8DC;padding-left: 5%; padding-right: 5%;} 
+
+.linkedin {width:172px;height:172px;  padding-left: 5%; padding-right: 5%;}
+
+#aboutus_background {background-color: #BF8AA2; height: 450px; position: static; margin-top: 8%;}
