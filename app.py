@@ -25,9 +25,7 @@ def about():
 def about():
     return render_template('matches.html')
 
-@app.route("/create_an_account", endpoint = "create_an_account_page")
-def about():
-    return render_template('create_an_account.html')
+
 
 """
 404 Handling
