@@ -6,7 +6,7 @@
     <title>Sign up</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='styles/final.css')}}">
 </head>
-<body id="login-body">
+<body id="createaccount-body">
     <!-- Your HTML goes here -->
     <!-- These lines below are for the menu. They would 
     be present on every page, at the top.-->
@@ -23,16 +23,18 @@
        <h1 style="font-size: 45px;"> &nbsp Newsletter Cloud</h1> 
         <h3>&nbsp Created by Naomi Wilson and Justine Zhao</h3>
       </div>
-      <form action="" id="login_form" >
-        <input type="text" id="username-input" name="username" placeholder="Enter  Username" style="height: 40px; width: 60%;">
-        <br>
-        <br>
-        <input type="text" id="password-input" name="password" placeholder="Enter password" style="height: 40px; width: 60%;">
-        <br>
-        <button id= "login_button">Log in </button>
-        <br>
-        <a href="{{url_for('create_an_account_page')}}" style="font-size: 20px; color: white ; background-color: #BF8AA2;">Create an account</a>
-    </form>
+
+      <form action="" id="login_form">
+        <input type="text" id="username-input" name="username" placeholder="New Username" style="height: 40px; width: 60%;">
+          <br>
+          <br>
+
+          <input type="text" id="password-input" name="password-input" placeholder="New password" style="height: 40px; width: 60%;">
+          <br>
+          <button id= "create_button">Create account </button>
+          <a href="{{url_for('log_in_page')}}"> Already have an account? Log in here</a>
+      
+      </form>
     
     
     
