@@ -143,8 +143,8 @@ def create_new_account_post():
 
 @app.post("/create-new", endppoint="create_new_account_page")
 def create_new_account_post():
-    new_user = request.form.get("new_username_input")
-    new_password = request.form.get("new_password_input")
+    new_user = request.form.get("username")
+    new_password = request.form.get("password-input")
     new_hashed_password = hash_password(new_password)
     db = get_db()
     cursor = db.cursor()
