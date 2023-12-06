@@ -167,7 +167,7 @@ def matches_get():
 
 @app.post("/matches", endpoint = "matches_page")
 def matches_post():
-    selected_categories = 
+    selected_categories = ""
     suggestions = get_newsletter_suggestions(selected_categories)
 
 
