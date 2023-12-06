@@ -110,12 +110,12 @@ def home():
     return render_template("homepage.html")
 
 
-@app.get("/login", endpoint="log_in_page")
+@app.get("/login", endpoint="log_in_page_get")
 def log_in_get():
     return render_template("Log_in.html")
 
 
-@app.post("/login", endpoint="log_in_page")
+@app.post("/login", endpoint="log_in_page_post")
 def log_in_post():
     # get data from database
     db = get_db()
@@ -136,12 +136,12 @@ def log_in_post():
             return redirect("/matches")
 
 
-@app.get("/create-new", endppoint="create_new_account_page")
+@app.get("/create-new", endpoint="create_new_account_page_get")
 def create_new_account_post():
     return render_template("create_an_account.html")
 
 
-@app.post("/create-new", endppoint="create_new_account_page")
+@app.post("/create-new", endpoint="create_new_account_page_post")
 def create_new_account_post():
     new_user = request.form.get("username")
     new_password = request.form.get("password-input")
@@ -161,11 +161,11 @@ def create_new_account_post():
         print("Username is already taken. Please enter another username")
 
 
-@app.get("/matches", endpoint = "matches_page")
+@app.get("/matches", endpoint = "matches_page_get")
 def matches_get():
     return render_template("matches.html")
 
-@app.post("/matches", endpoint = "matches_page")
+@app.post("/matches", endpoint = "matches_page_post")
 def matches_post():
     selected_categories = ""
     suggestions = get_newsletter_suggestions(selected_categories)
