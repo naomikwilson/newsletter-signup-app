@@ -1,5 +1,5 @@
 #home-body{
-  background-image: url(../images/homepage_background.jpg); background-size: cover 
+  background-image: url(../images/homepage_background.jpg); background-size: cover; opacity: 90%; 
 }
 
 #aboutus-body{
@@ -14,6 +14,9 @@
   background-image: url(../images/LogInBackground.jpg);
 }
 
+#createaccount-body{
+  background-image: url(../images/CreateAccountBackground.jpg);
+}
 
 
 .dropbtn {
@@ -75,11 +78,18 @@
     animation-iteration-count: 1;
     animation-fill-mode: forwards;}
 
-#learn_more {background-color: #f7882f;
-  color: black;
+#Sign_up {background-color: #f7882f;
+  color: white;
   padding:  10px 30px 10px 30px;
   font-size: 16px;
-  border: none; border-radius: 5px;}
+  border: none; border-radius: 5px;display: inline-block;
+  position: relative;}
+
+  #learn_more{background-color: #BF8AA2;
+    color: white;
+    padding:  10px 30px 10px 30px;
+    font-size: 16px;
+    border: none; border-radius: 5px;}
 
 #footer {margin-top: 11%;}
 
@@ -102,3 +112,9 @@ form {size: 500px;}
 .linkedin {width:172px;height:172px;  padding-left: 5%; padding-right: 5%;}
 
 #aboutus_background {background-color: #BF8AA2; height: 450px; position: static; margin-top: 8%;}
+
+#login_button {display: block; width: 30%; border: none; background-color: white; color: black; padding: 14px 28px 14px 28px; font-size: 16px; cursor: pointer; position: relative; margin-left: 33%;margin-top: 10px;}
+
+#login_form { text-align: center; background-color: lightgray; margin: 70px 350px 200px; padding-top: 130px;padding-bottom: 150px;}
+
+#create_button {display: block; width: 30%; border: none; background-color: grey; color: black; padding: 14px 28px 14px 28px; font-size: 16px; cursor: pointer; position: relative; margin-left: 33%;margin-top: 10px;}
