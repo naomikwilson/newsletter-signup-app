@@ -1,13 +1,15 @@
 # Reference: flask-app-demo repository by lzblack / Zhi Li on GitHub
 # Debugged using ChatGPT (per professor's suggestion)
 
-from flask import Flask, redirect, render_template, request, g
+from flask import Flask, redirect, render_template, request, g, flash
 import sqlite3
 from historical_events import get_fact
 from password_verification import password_verification, hash_password
 from newsletter_suggestions import get_newsletter_suggestions, get_all_newsletter_names
+from config import SECRET_KEY
 
 app = Flask(__name__)
+app.secret_key = SECRET_KEY
 
 
 # 1. Configuration settings
@@ -82,27 +84,6 @@ def teardown_request(exception):
     if hasattr(g, "db"):
         g.db.close()
 
-
-# #4. Route definitions
-# @app.route("/")
-# def index():
-#     db = get_db()
-#     cursor = db.cursor()
-#     cursor.execute("SELECT * FROM users")
-#     users = cursor.fetchall()
-#     return render_template("index.html", users=users)
-
-
-# @app.post("/add")
-# def add_user():
-#     name = request.form.get("name")
-#     email = request.form.get("email")
-#     db = get_db()
-#     cursor = db.cursor()
-#     cursor.execute("INSERT INTO users (username, email) VALUES (?, ?);", (name, email))
-#     db.commit()
-#     return redirect("/")
-
 current_user = ""
 suggestions = ""
 
@@ -128,25 +109,32 @@ def log_in_get():
     return render_template("Log_in.html")
 
 
-@app.post("/login", endpoint="log_in_page_post")
+@app.route("/login", methods=["POST"], endpoint="log_in_page_post")
 def log_in_post():
     # get data from database
     db = get_db()
     cursor = db.cursor()
-    cursor.execute("SELECT username FROM users")
-    users = cursor.fetchall()
+    cursor.execute("SELECT username, hashed_password FROM users")
+    users = dict(cursor.fetchall())
+
     # validate the input
     user = request.form.get("username")
     password = request.form.get("password")
+
+
     if user not in users:
-        print("User not found; please create an account by clicking the button above")
+        flash("User not found; please create an account by clicking the button above", "error")
+        return render_template("Log_in.html")
+    
+    hashed_password = users.get(user)
+    if password_verification(password, hashed_password):
+        # set user to current_user to indicate the user has logged in
+        global current_user
+        current_user = user
+        return redirect("/matches")
     else:
-        cursor.execute("SELECT hashed_password FROM users WHERE username = ?;", (user))
-        hashed_password = cursor.fetchall()
-        if password_verification(password, hashed_password):
-            # add user to current_user dict to indicate the user has logged in
-            current_user = user
-            return redirect("/matches")
+        flash("Incorrect password", "error")
+        return render_template("Log_in.html")
 
 
 @app.get("/create-new", endpoint="create_new_account_page_get")
@@ -154,24 +142,37 @@ def create_new_account_post():
     return render_template("create_an_account.html")
 
 
-@app.post("/create-new", endpoint="create_new_account_page_post")
+@app.route("/create-new", methods=["POST"], endpoint="create_new_account_page_post")
 def create_new_account_post():
     new_user = request.form.get("username")
     new_password = request.form.get("password-input")
     new_hashed_password = hash_password(new_password)
+
     db = get_db()
     cursor = db.cursor()
-    cursor.execute("SELECT username FROM users")
-    users = cursor.fetchall()
+    # select two fields to be able to turn rows into dict
+    cursor.execute("SELECT username, user_id FROM users")
+    rows = cursor.fetchall()
+
+    if rows:
+        users = dict(rows)
+    else:
+        users = {}
+
     if new_user not in users:  # confirm that username is not already taken
         cursor.execute(
             "INSERT INTO users (username, hashed_password) VALUES (?, ?);",
             (new_user, new_hashed_password),
         )
+        db.commit()
+        flash("User created successfully", "success")
+        # set user to current_user to indicate the user has logged in
+        global current_user
         current_user = new_user
         return redirect("/matches")
     else:
-        print("Username is already taken. Please enter another username")
+        flash("Username is already taken. Please enter another username", "error")
+        return render_template("create_an_account.html")
 
 
 @app.get("/matches", endpoint="matches_page_get")
@@ -179,24 +180,25 @@ def matches_get():
     return render_template("matches.html")
 
 
-@app.post("/matches", endpoint="matches_page_post")
+@app.route("/matches", methods=["POST"], endpoint="matches_page_post")
 def matches_post():
     selected_categories = ""  # how to get info on which images the user selected?
     # store info for final page w/ matches & buttons to save matches to database
     # may need to add "for" loop to html file (ideally loop through suggestions (dict))
+    global suggestions
     suggestions = get_newsletter_suggestions(selected_categories)
+    return redirect("/results")
 
 
-# for the page where people can add/delete newsletters
-# app.get("/results", endpoint = "results_get")
-# def results_get():
-#     return render_template("results.html")
+app.get("/results", endpoint = "results_get")
+def results_get():
+    return render_template("results.html")
 
 
-# app.post("/results", endpoint = "results_post")
+app.post("/results", endpoint = "results_post")
 def results_post():
-    newsletters_to_add = []  # newsletter to add
-    newsletters_to_delete = []  # newsletter to delete
+    newsletters_to_add = []  # newsletter to add (based on user input)
+    newsletters_to_delete = []  # newsletter to delete (based on user input)
     db = get_db()
     cursor = db.cursor()
     user_id = cursor.execute(
@@ -204,6 +206,7 @@ def results_post():
     )
 
     # Get newsletters saved by user
+    global saved_newsletters
     saved_newsletters = cursor.execute(
         "SELECT newsletter_name FROM newsletters INNER JOIN newsletter_subscriptions ON newsletters.newsletter_id = newsletter_subscriptions.newsletter_id WHERE user_id = ?;",
         (user_id),

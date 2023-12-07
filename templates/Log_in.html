@@ -32,10 +32,20 @@
         <button id= "login_button">Log in </button>
         <br>
         <a href="{{url_for('create_new_account_page_get')}}" style="font-size: 20px; color: white ; background-color: #BF8AA2;">Dont have an account? Create one account here</a>
+    
+        {% with messages = get_flashed_messages() %}
+          {% if messages %}
+            <ul class="flashes">
+            {% for message in messages %}
+              <li>{{ message }}</li>
+            {% endfor %}
+              </ul>
+          {% endif %}
+        {% endwith %}
+
     </form>
     
     <h6 id="footer">Newsletter Cloud | Computer science for business students | Professor Zhi Li</h6>
-    
     
 </body>
 </html>

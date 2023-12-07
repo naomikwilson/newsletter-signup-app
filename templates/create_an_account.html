@@ -32,7 +32,19 @@
           <input type="text" id="password-input" name="password-input" placeholder="New password">
           <br>
           <button id= "create_button">Create account </button>
+          <br>
           <a href="{{url_for('log_in_page_get')}}"> Already have an account? Log in here</a>
+
+          {% with messages = get_flashed_messages() %}
+            {% if messages %}
+              <ul class="flashes">
+              {% for message in messages %}
+                <li>{{ message }}</li>
+              {% endfor %}
+                </ul>
+            {% endif %}
+          {% endwith %}
+
       
       </form>
     
