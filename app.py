@@ -35,7 +35,8 @@ def create_table():
         )
     """
     )
-    all_newsletter_names = get_all_newsletter_names()
+    #all_newsletter_names = get_all_newsletter_names()
+    all_newsletter_names = ""
     for newsletter in all_newsletter_names:
         cursor.execute(
             "INSERT INTO newsletters (newsletter_name) VALUES (?);", (newsletter)
@@ -134,7 +135,7 @@ def log_in_post():
     if user not in users:
         print("User not found; please create an account by clicking the button above")
     else:
-        cursor.execute("SELECT hashed_password FROM users WHERE username = ?;"(user))
+        cursor.execute("SELECT hashed_password FROM users WHERE username = ?;", (user))
         hashed_password = cursor.fetchall()
         if password_verification(password, hashed_password):
             # add user to current_user dict to indicate the user has logged in
