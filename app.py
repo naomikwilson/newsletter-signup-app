@@ -1,13 +1,15 @@
 # Reference: flask-app-demo repository by lzblack / Zhi Li on GitHub
 # Debugged using ChatGPT (per professor's suggestion)
 
-from flask import Flask, redirect, render_template, request, g
+from flask import Flask, redirect, render_template, request, g, flash
 import sqlite3
 from historical_events import get_fact
 from password_verification import password_verification, hash_password
 from newsletter_suggestions import get_newsletter_suggestions, get_all_newsletter_names
+from config import SECRET_KEY
 
 app = Flask(__name__)
+app.secret_key = SECRET_KEY
 
 
 # 1. Configuration settings
@@ -82,27 +84,6 @@ def teardown_request(exception):
     if hasattr(g, "db"):
         g.db.close()
 
-
-# #4. Route definitions
-# @app.route("/")
-# def index():
-#     db = get_db()
-#     cursor = db.cursor()
-#     cursor.execute("SELECT * FROM users")
-#     users = cursor.fetchall()
-#     return render_template("index.html", users=users)
-
-
-# @app.post("/add")
-# def add_user():
-#     name = request.form.get("name")
-#     email = request.form.get("email")
-#     db = get_db()
-#     cursor = db.cursor()
-#     cursor.execute("INSERT INTO users (username, email) VALUES (?, ?);", (name, email))
-#     db.commit()
-#     return redirect("/")
-
 current_user = ""
 suggestions = ""
 
@@ -142,24 +123,18 @@ def log_in_post():
 
 
     if user not in users:
-        return "User not found; please create an account by clicking the button above"
-    # else:
-    #     cursor.execute("SELECT hashed_password FROM users WHERE username = ?;", (user))
-    #     hashed_password = cursor.fetchall()
-    #     if password_verification(password, hashed_password):
-    #         # add user to current_user dict to indicate the user has logged in
-    #         global current_user
-    #         current_user = user
-    #         return redirect("/matches")
-        
+        flash("User not found; please create an account by clicking the button above", "error")
+        return render_template("Log_in.html")
+    
     hashed_password = users.get(user)
     if password_verification(password, hashed_password):
         # set user to current_user to indicate the user has logged in
         global current_user
         current_user = user
         return redirect("/matches")
-
-    return "Incorrect password"
+    else:
+        flash("Incorrect password", "error")
+        return render_template("Log_in.html")
 
 
 @app.get("/create-new", endpoint="create_new_account_page_get")
@@ -175,9 +150,14 @@ def create_new_account_post():
 
     db = get_db()
     cursor = db.cursor()
-    cursor.execute("SELECT username FROM users")
-    users = dict(cursor.fetchall())
+    # select two fields to be able to turn rows into dict
+    cursor.execute("SELECT username, user_id FROM users")
+    rows = cursor.fetchall()
 
+    if rows:
+        users = dict(rows)
+    else:
+        users = {}
 
     if new_user not in users:  # confirm that username is not already taken
         cursor.execute(
@@ -185,14 +165,14 @@ def create_new_account_post():
             (new_user, new_hashed_password),
         )
         db.commit()
-        print("User added successfully")
-
+        flash("User created successfully", "success")
         # set user to current_user to indicate the user has logged in
         global current_user
         current_user = new_user
         return redirect("/matches")
-   
-    return "Username is already taken. Please enter another username"
+    else:
+        flash("Username is already taken. Please enter another username", "error")
+        return render_template("create_an_account.html")
 
 
 @app.get("/matches", endpoint="matches_page_get")
