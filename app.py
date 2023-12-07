@@ -201,16 +201,12 @@ def matches_post():
     return redirect("/results")
 
 
-app.get("/results", endpoint="results_get")
-
-
+@app.get("/results", endpoint="results_get")
 def results_get():
     return render_template("results.html")
 
 
-app.post("/results", endpoint="results_post")
-
-
+@app.post("/results", endpoint="results_post")
 def results_post():
     newsletters_to_add = []  # newsletter to add (based on user input)
     newsletters_to_delete = []  # newsletter to delete (based on user input)
