@@ -68,7 +68,25 @@ def merge(left, right):
     return result
 
 
+def get_all_newsletter_names():
+    """
+    Get names of all newsletters.
+    """
+    all_newsletter_names = []
+    all_categories = ["Current Events", "Finance and Markets", "Food and Agriculture", 
+                  "Sustainability and the Environment", "Science", "Health and Medicine",
+                  "Education"]
+    all_newsletters = get_newsletter_suggestions(all_categories)
+    for name in all_newsletters.keys():
+        all_newsletter_names.append(name)
+    
+    return all_newsletter_names
+
 def main():
+    print("List of all newsletters:")
+    print(get_all_newsletter_names())
+    print()
+    print("Newsletter recommendations for Current Events, Science, Health and Medicine:")
     example_newsletter_categories = ["Current Events", "Science", "Health and Medicine"]
     print(get_newsletter_suggestions(example_newsletter_categories))
 
