@@ -197,6 +197,7 @@ def matches_post():
     # may need to add "for" loop to html file (ideally loop through suggestions (dict))
     global suggestions
     suggestions = get_newsletter_suggestions(selected_categories)
+    print(suggestions)
     return redirect("/results")
 
 
