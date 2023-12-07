@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sign up</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='styles/final.css')}}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/login.css')}}">
 </head>
 <body id="login-body">
     <!-- Your HTML goes here -->
@@ -23,7 +23,7 @@
        <h1 style="font-size: 45px;"> &nbsp Newsletter Cloud</h1> 
         <h3>&nbsp Created by Naomi Wilson and Justine Zhao</h3>
       </div>
-      <form action="" id="login_form" >
+      <form action="" id="login_form" method="post" >
         <input type="text" id="username-input" name="username" placeholder="Enter  Username" style="height: 40px; width: 60%;">
         <br>
         <br>
@@ -31,10 +31,10 @@
         <br>
         <button id= "login_button">Log in </button>
         <br>
-        <a href="{{url_for('create_new_account_page_get')}}" style="font-size: 20px; color: white ; background-color: #BF8AA2;">Create an account</a>
+        <a href="{{url_for('create_new_account_page_get')}}" style="font-size: 20px; color: white ; background-color: #BF8AA2;">Dont have an account? Create one account here</a>
     </form>
     
-    
+    <h6 id="footer">Newsletter Cloud | Computer science for business students | Professor Zhi Li</h6>
     
     
 </body>

@@ -4,14 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sign up</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='styles/final.css')}}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/createaccount.css')}}">
 </head>
 <body id="createaccount-body">
     <!-- Your HTML goes here -->
     <!-- These lines below are for the menu. They would 
     be present on every page, at the top.-->
 	
-    <<div class="dropdown">
+    <div class="dropdown">
       <a href="{{url_for('home_page')}}"><button class="dropbtn">Home</button></a>
       <div class="dropdown-content">
         <a href="{{url_for('about_page')}}">About us</a>
@@ -24,19 +24,19 @@
         <h3>&nbsp Created by Naomi Wilson and Justine Zhao</h3>
       </div>
 
-      <form action="" id="login_form">
-        <input type="text" id="username-input" name="username" placeholder="New Username" style="height: 40px; width: 60%;">
+      <form action="" id="login_form" method="post">
+        <input type="text" id="username-input" name="username" placeholder="New Username" >
           <br>
           <br>
 
-          <input type="text" id="password-input" name="password-input" placeholder="New password" style="height: 40px; width: 60%;">
+          <input type="text" id="password-input" name="password-input" placeholder="New password">
           <br>
           <button id= "create_button">Create account </button>
           <a href="{{url_for('log_in_page_get')}}"> Already have an account? Log in here</a>
       
       </form>
     
-    
+      <h6 id="footer">Newsletter Cloud | Computer science for business students | Professor Zhi Li</h6>
     
     
 </body>
