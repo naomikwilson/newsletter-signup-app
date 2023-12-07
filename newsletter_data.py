@@ -44,7 +44,7 @@ newsletter_data = [
             "Science News": "https://www.sciencenews.org/newsletters",
             "Scientific American Newsletter": "https://www.scientificamerican.com/newsletter-signup/",
             "The New York Times - Science Times": "https://www.nytimes.com/newsletters/signup/SC",
-            "Wired Science Newsletter": "https://www.wired.com/newsletter/science"
+            "Wired Science Newsletter": "https://www.wired.com/newsletter/science",
         }
     },
     {
@@ -53,7 +53,7 @@ newsletter_data = [
             "Mayo Clinic Health Letter": "https://mcpress.mayoclinic.org/product/healthletter/",
             "WebMD Daily": "https://member.webmd.com/subscribe",
             "The Lancet": "https://www.thelancet.com/journals/lancet/subscribe",
-            "NIH News in Health": "https://newsinhealth.nih.gov/subscribe"
+            "NIH News in Health": "https://newsinhealth.nih.gov/subscribe",
         }
     },
     {
@@ -74,5 +74,5 @@ categories_and_index = {
     "Sustainability and the Environment": 3,
     "Science": 4,
     "Health and Medicine": 5,
-    "Education": 6
+    "Education": 6,
 }

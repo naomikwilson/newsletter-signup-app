@@ -1,10 +1,11 @@
 # Reference: flask-app-demo repository by lzblack / Zhi Li on GitHub
+# Debugged using ChatGPT (per professor's suggestion)
 
 from flask import Flask, redirect, render_template, request, g
 import sqlite3
 from historical_events import get_fact
 from password_verification import password_verification, hash_password
-from newsletter_suggestions import get_newsletter_suggestions
+from newsletter_suggestions import get_newsletter_suggestions, get_all_newsletter_names
 
 app = Flask(__name__)
 
@@ -27,14 +28,25 @@ def create_table():
         )
     """
     )
+
     cursor.execute(
         """
         CREATE TABLE IF NOT EXISTS newsletters (
             newsletter_id INTEGER PRIMARY KEY AUTOINCREMENT,
-            newsletter_name TEXT
+            newsletter_name TEXT UNIQUE -- Add UNIQUE constraint to prevent duplicates
         )
     """
     )
+    all_newsletter_names = get_all_newsletter_names()
+    for newsletter in all_newsletter_names:
+        # Check if the newsletter already exists
+        cursor.execute("SELECT newsletter_name FROM newsletters WHERE newsletter_name = ?;", (newsletter,))
+        existing_newsletter = cursor.fetchone()
+        
+        if not existing_newsletter:
+            cursor.execute(
+                "INSERT INTO newsletters (newsletter_name) VALUES (?);", (newsletter,)
+            )
     cursor.execute(
         """
         CREATE TABLE IF NOT EXISTS newsletter_subscriptions (
@@ -42,7 +54,7 @@ def create_table():
             user_id INTEGER,
             newsletter_id INTEGER,
             FOREIGN KEY(user_id) REFERENCES users(user_id),
-            FOREIGN KEY(newsletter_id) REFERENCES users(newsletter_id)
+            FOREIGN KEY(newsletter_id) REFERENCES newsletters(newsletter_id)
         )
     """
     )
@@ -92,6 +104,7 @@ def teardown_request(exception):
 #     return redirect("/")
 
 current_user = ""
+suggestions = ""
 
 
 @app.route("/")
@@ -128,7 +141,7 @@ def log_in_post():
     if user not in users:
         print("User not found; please create an account by clicking the button above")
     else:
-        cursor.execute("SELECT hashed_password FROM users WHERE username = (?);"(user))
+        cursor.execute("SELECT hashed_password FROM users WHERE username = ?;", (user))
         hashed_password = cursor.fetchall()
         if password_verification(password, hashed_password):
             # add user to current_user dict to indicate the user has logged in
@@ -161,23 +174,65 @@ def create_new_account_post():
         print("Username is already taken. Please enter another username")
 
 
-@app.get("/matches", endpoint = "matches_page_get")
+@app.get("/matches", endpoint="matches_page_get")
 def matches_get():
     return render_template("matches.html")
 
-@app.post("/matches", endpoint = "matches_page_post")
+
+@app.post("/matches", endpoint="matches_page_post")
 def matches_post():
-    selected_categories = ""
+    selected_categories = ""  # how to get info on which images the user selected?
+    # store info for final page w/ matches & buttons to save matches to database
+    # may need to add "for" loop to html file (ideally loop through suggestions (dict))
     suggestions = get_newsletter_suggestions(selected_categories)
 
 
+# for the page where people can add/delete newsletters
+# app.get("/results", endpoint = "results_get")
+# def results_get():
+#     return render_template("results.html")
 
 
+# app.post("/results", endpoint = "results_post")
+def results_post():
+    newsletters_to_add = []  # newsletter to add
+    newsletters_to_delete = []  # newsletter to delete
+    db = get_db()
+    cursor = db.cursor()
+    user_id = cursor.execute(
+        "SELECT user_id FROM users WHERE username = ?;", (current_user)
+    )
 
+    # Get newsletters saved by user
+    saved_newsletters = cursor.execute(
+        "SELECT newsletter_name FROM newsletters INNER JOIN newsletter_subscriptions ON newsletters.newsletter_id = newsletter_subscriptions.newsletter_id WHERE user_id = ?;",
+        (user_id),
+    )
 
-
-
-
+    if len(newsletters_to_add) > 0:
+        for newsletter in newsletters_to_add:
+            # get newsletter id of newsletter to add
+            newsletter_id = cursor.execute(
+                "SELECT newsletter_id FROM newsletters WHERE newsletter_name = ?;",
+                (newsletter),
+            )
+            # add user id and newsletter id to database to save suggested newsletter
+            cursor.execute(
+                "INSERT INTO newsletter_subscription (user_id, newsletter_id) VALUES (?, ?);",
+                (user_id, newsletter_id),
+            )
+    if len(newsletters_to_delete) > 0:
+        for newsletter in newsletters_to_delete:
+            # get newsletter id of newsletter to add
+            newsletter_id = cursor.execute(
+                "SELECT newsletter_id FROM newsletters WHERE newsletter_name = ?;",
+                (newsletter),
+            )
+            # delete entry with the corresponding newsletter id and user id
+            cursor.execute(
+                "DELETE FROM newsletter_subscription WHERE user_id = ? AND newsletter_id = ?;",
+                (user_id, newsletter_id),
+            )
 
 
 """
