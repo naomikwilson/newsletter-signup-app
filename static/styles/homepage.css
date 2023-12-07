@@ -1,32 +1,14 @@
 #home-body{
-  background-image: url(../images/homepage_background.jpg); background-size: cover; opacity: 90%; 
-}
+    background-image: url(../images/homepage_background.jpg); background-size: cover; opacity: 90%; 
+  }
 
-#aboutus-body{
-  background-color: #EAD8DC; background-size: cover;
-}
-
-#matches-body{
-  background-image: url(../images/Matches_background.jpg)
-}
-
-#login-body{
-  background-image: url(../images/LogInBackground.jpg);
-}
-
-#createaccount-body{
-  background-image: url(../images/CreateAccountBackground.jpg);
-}
-
-
-.dropbtn {
+  .dropbtn {
     background-color: #f7882f;
     color: white;
     padding:  16px 36px 16px 36px;
     font-size: 20px;
     border: none;
   }
-  
   /* The container <div> - needed to position the dropdown content */
   .dropdown {
     position: relative;
@@ -93,28 +75,6 @@
 
 #footer {margin-top: 11%;}
 
-.match_icon {margin-left: 30px;margin-top: 20px; border: solid white;border-radius: 35px;}
 
-form {size: 500px;}
 
-#justine_linkedin_block {background-color: #FDFBF2; width: 200px; height: 280px;  text-align: center; margin-top: -27.50%; margin-left: 67%; border-radius: 20px; animation: fadeInAnimation ease 4s;
-  animation-iteration-count: 1;
-  animation-fill-mode: forwards; position: static;}
 
-#linkedin_justine_text {background: #E8D8DC;padding-left: 5%; padding-right: 5%;} 
-
-#Naomi_linkedin_block {background-color: #FDFBF2; width: 200px; height: 280px;  text-align: center; margin-top: -19.50%; margin-left: 40%; border-radius: 20px; animation: fadeInAnimation ease 4s;
-  animation-iteration-count: 1;
-  animation-fill-mode: forwards;position: static;}
-
-#linkedin_Naomi_text {background: #E8D8DC;padding-left: 5%; padding-right: 5%;} 
-
-.linkedin {width:172px;height:172px;  padding-left: 5%; padding-right: 5%;}
-
-#aboutus_background {background-color: #BF8AA2; height: 450px; position: static; margin-top: 8%;}
-
-#login_button {display: block; width: 30%; border: none; background-color: white; color: black; padding: 14px 28px 14px 28px; font-size: 16px; cursor: pointer; position: relative; margin-left: 33%;margin-top: 10px;}
-
-#login_form { text-align: center; background-color: lightgray; margin: 70px 350px 200px; padding-top: 130px;padding-bottom: 150px;}
-
-#create_button {display: block; width: 30%; border: none; background-color: grey; color: black; padding: 14px 28px 14px 28px; font-size: 16px; cursor: pointer; position: relative; margin-left: 33%;margin-top: 10px;}
