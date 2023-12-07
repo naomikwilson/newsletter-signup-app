@@ -1,4 +1,5 @@
 # Reference: flask-app-demo repository by lzblack / Zhi Li on GitHub
+# Debugged using ChatGPT (per professor's suggestion)
 
 from flask import Flask, redirect, render_template, request, g
 import sqlite3
@@ -27,20 +28,25 @@ def create_table():
         )
     """
     )
+
     cursor.execute(
         """
         CREATE TABLE IF NOT EXISTS newsletters (
             newsletter_id INTEGER PRIMARY KEY AUTOINCREMENT,
-            newsletter_name TEXT
+            newsletter_name TEXT UNIQUE -- Add UNIQUE constraint to prevent duplicates
         )
     """
     )
-    #all_newsletter_names = get_all_newsletter_names()
-    all_newsletter_names = ""
+    all_newsletter_names = get_all_newsletter_names()
     for newsletter in all_newsletter_names:
-        cursor.execute(
-            "INSERT INTO newsletters (newsletter_name) VALUES (?);", (newsletter)
-        )
+        # Check if the newsletter already exists
+        cursor.execute("SELECT newsletter_name FROM newsletters WHERE newsletter_name = ?;", (newsletter,))
+        existing_newsletter = cursor.fetchone()
+        
+        if not existing_newsletter:
+            cursor.execute(
+                "INSERT INTO newsletters (newsletter_name) VALUES (?);", (newsletter,)
+            )
     cursor.execute(
         """
         CREATE TABLE IF NOT EXISTS newsletter_subscriptions (
@@ -48,7 +54,7 @@ def create_table():
             user_id INTEGER,
             newsletter_id INTEGER,
             FOREIGN KEY(user_id) REFERENCES users(user_id),
-            FOREIGN KEY(newsletter_id) REFERENCES users(newsletter_id)
+            FOREIGN KEY(newsletter_id) REFERENCES newsletters(newsletter_id)
         )
     """
     )
