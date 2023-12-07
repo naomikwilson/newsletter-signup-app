@@ -39,16 +39,21 @@ def create_table():
         )
     """
     )
+
     all_newsletter_names = get_all_newsletter_names()
     for newsletter in all_newsletter_names:
         # Check if the newsletter already exists
-        cursor.execute("SELECT newsletter_name FROM newsletters WHERE newsletter_name = ?;", (newsletter,))
+        cursor.execute(
+            "SELECT newsletter_name FROM newsletters WHERE newsletter_name = ?;",
+            (newsletter,),
+        )
         existing_newsletter = cursor.fetchone()
-        
+
         if not existing_newsletter:
             cursor.execute(
                 "INSERT INTO newsletters (newsletter_name) VALUES (?);", (newsletter,)
             )
+
     cursor.execute(
         """
         CREATE TABLE IF NOT EXISTS newsletter_subscriptions (
@@ -83,6 +88,7 @@ def before_request():
 def teardown_request(exception):
     if hasattr(g, "db"):
         g.db.close()
+
 
 current_user = ""
 suggestions = ""
@@ -121,12 +127,15 @@ def log_in_post():
     user = request.form.get("username")
     password = request.form.get("password")
 
-
     if user not in users:
-        flash("User not found; please create an account by clicking the button above", "error")
+        flash(
+            "User not found; please create an account by clicking the button above",
+            "error",
+        )
         return render_template("Log_in.html")
-    
+
     hashed_password = users.get(user)
+    # if the password is correct (hashed version matches one in database)
     if password_verification(password, hashed_password):
         # set user to current_user to indicate the user has logged in
         global current_user
@@ -182,7 +191,8 @@ def matches_get():
 
 @app.route("/matches", methods=["POST"], endpoint="matches_page_post")
 def matches_post():
-    selected_categories = ""  # how to get info on which images the user selected?
+    selected_categories = request.form.getlist("option") 
+    print(selected_categories)
     # store info for final page w/ matches & buttons to save matches to database
     # may need to add "for" loop to html file (ideally loop through suggestions (dict))
     global suggestions
@@ -190,12 +200,16 @@ def matches_post():
     return redirect("/results")
 
 
-app.get("/results", endpoint = "results_get")
+app.get("/results", endpoint="results_get")
+
+
 def results_get():
     return render_template("results.html")
 
 
-app.post("/results", endpoint = "results_post")
+app.post("/results", endpoint="results_post")
+
+
 def results_post():
     newsletters_to_add = []  # newsletter to add (based on user input)
     newsletters_to_delete = []  # newsletter to delete (based on user input)
@@ -212,7 +226,8 @@ def results_post():
         (user_id),
     )
 
-    if len(newsletters_to_add) > 0:
+    # If there are newsletters that need to be added to the newsletter_subscription table
+    if newsletters_to_add:
         for newsletter in newsletters_to_add:
             # get newsletter id of newsletter to add
             newsletter_id = cursor.execute(
@@ -224,7 +239,9 @@ def results_post():
                 "INSERT INTO newsletter_subscription (user_id, newsletter_id) VALUES (?, ?);",
                 (user_id, newsletter_id),
             )
-    if len(newsletters_to_delete) > 0:
+
+    # If there are newsletters that need to be removed from the newsletter_subscription table
+    if newsletters_to_delete:
         for newsletter in newsletters_to_delete:
             # get newsletter id of newsletter to add
             newsletter_id = cursor.execute(
@@ -245,7 +262,7 @@ def results_post():
 
 @app.errorhandler(404)
 def page_not_found(e):
-    return "Not found. 😭"
+    return "Not found. 😭"  # can later add a proper 404 error page if there's time
 
 
 if __name__ == "__main__":

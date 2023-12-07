@@ -26,29 +26,29 @@
       
       <h2 style="position: absolute; top: 80px; left: 500px; width: 800px; background-color: white; opacity: 80%;">Having trouble finding what newsletters to subscribe to? Select topics you are interested in below and click the submit button to see which newsletters are most reccommended!</h2>
     
-    <form action="" method="post">
+    <form action="{{ url_for('matches_page_post') }}" method="post">
       
       <div>
-      <input type="checkbox" id="CurrentEvents" class="checkbox_css" style="transform : scale(3);position: absolute;left: 5rem;top: 18rem;" /> 
+      <input type="checkbox" id="CurrentEvents" name = "option" class="checkbox_css" style="transform : scale(3);position: absolute;left: 5rem;top: 18rem;" /> 
       <label for="CurrentEvents"><img src="/static/images/CurrentEvents.jpg" alt="CurrentEvents Icon" class="match_icon" id="CurrentEvents" style="height:170px;" title="" ></label>
 
-      <input type="checkbox" id="FinanceMarkets" class="checkbox_css" style="transform : scale(3);position: absolute;left: 26rem;top: 18rem; " /> 
+      <input type="checkbox" id="FinanceMarkets" name = "option" class="checkbox_css" style="transform : scale(3);position: absolute;left: 26rem;top: 18rem; " /> 
       <label for="FinanceMarkets"><img src="/static/images/FinanceMarkets.jpg" alt="FinanceMarkets Icon" class="match_icon" id="FinanceMarkets" style="height:170px;" title="" ></label>
 
-      <input type="checkbox" id="FoodAgriculture" class="checkbox_css" style="transform : scale(3);position: absolute; left: 47rem;top: 18rem;" /> 
+      <input type="checkbox" id="FoodAgriculture" name = "option" class="checkbox_css" style="transform : scale(3);position: absolute; left: 47rem;top: 18rem;" /> 
       <label for="FoodAgriculture"><img src="/static/images/FoodAgriculture.jpg" alt="FoodAgriculture Icon" class="match_icon" id="FoodAgriculture" style="height:170px;" title="" ></label>
 
-      <input type="checkbox" id="Sustainability" class="checkbox_css" style="transform : scale(3);position: absolute; left: 68rem;top: 18rem;" /> 
+      <input type="checkbox" id="Sustainability" name = "option" class="checkbox_css" style="transform : scale(3);position: absolute; left: 68rem;top: 18rem;" /> 
       <label for="Sustainability"><img src="/static/images/Sustainability.jpg" alt="Sustainability Icon" class="match_icon" id="Sustainability" style="height:170px;" title="" ></label>
 
-      <input type="checkbox" id="science" class="checkbox_css" style="transform : scale(3);position: absolute;left: 5rem;top: 30.5rem;" /> 
+      <input type="checkbox" id="science" name = "option" class="checkbox_css" style="transform : scale(3);position: absolute;left: 5rem;top: 30.5rem;" /> 
       <label for="science"><img src="/static/images/science.jpg" alt="science Icon" class="match_icon" id="science" style="height:170px;" title="" ></label>
 
       
-      <input type="checkbox" id="Education" class="checkbox_css" style="transform : scale(3);position: absolute;left: 26rem;top: 30.5rem; " /> 
+      <input type="checkbox" id="Education" name = "option" class="checkbox_css" style="transform : scale(3);position: absolute;left: 26rem;top: 30.5rem; " /> 
       <label for="Education"><img src="/static/images/Education.jpg" alt="Education Icon" class="match_icon" id="Education" style="height:170px;" title="" ></label>
 
-      <input type="checkbox" id="HealthMedicine" class="checkbox_css" style="transform : scale(3);position: absolute; left: 47rem;top: 30.5rem;" /> 
+      <input type="checkbox" id="HealthMedicine" name = "option"  class="checkbox_css" style="transform : scale(3);position: absolute; left: 47rem;top: 30.5rem;" /> 
       <label for="HealthMedicine"><img src="/static/images/HealthMedicine.jpg" alt="HealthMedicine Icon" class="match_icon" id="HealthMedicine" style="height:170px;" title="" ></label>
       <button id= "submit_button">Submit to get newsletter reccomondations </button>
     </div>
