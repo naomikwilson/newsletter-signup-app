@@ -128,25 +128,38 @@ def log_in_get():
     return render_template("Log_in.html")
 
 
-@app.post("/login", endpoint="log_in_page_post")
+@app.route("/login", methods=["POST"], endpoint="log_in_page_post")
 def log_in_post():
     # get data from database
     db = get_db()
     cursor = db.cursor()
-    cursor.execute("SELECT username FROM users")
-    users = cursor.fetchall()
+    cursor.execute("SELECT username, hashed_password FROM users")
+    users = dict(cursor.fetchall())
+
     # validate the input
     user = request.form.get("username")
     password = request.form.get("password")
+
+
     if user not in users:
-        print("User not found; please create an account by clicking the button above")
-    else:
-        cursor.execute("SELECT hashed_password FROM users WHERE username = ?;", (user))
-        hashed_password = cursor.fetchall()
-        if password_verification(password, hashed_password):
-            # add user to current_user dict to indicate the user has logged in
-            current_user = user
-            return redirect("/matches")
+        return "User not found; please create an account by clicking the button above"
+    # else:
+    #     cursor.execute("SELECT hashed_password FROM users WHERE username = ?;", (user))
+    #     hashed_password = cursor.fetchall()
+    #     if password_verification(password, hashed_password):
+    #         # add user to current_user dict to indicate the user has logged in
+    #         global current_user
+    #         current_user = user
+    #         return redirect("/matches")
+        
+    hashed_password = users.get(user)
+    if password_verification(password, hashed_password):
+        # set user to current_user to indicate the user has logged in
+        global current_user
+        current_user = user
+        return redirect("/matches")
+
+    return "Incorrect password"
 
 
 @app.get("/create-new", endpoint="create_new_account_page_get")
@@ -154,24 +167,32 @@ def create_new_account_post():
     return render_template("create_an_account.html")
 
 
-@app.post("/create-new", endpoint="create_new_account_page_post")
+@app.route("/create-new", methods=["POST"], endpoint="create_new_account_page_post")
 def create_new_account_post():
     new_user = request.form.get("username")
     new_password = request.form.get("password-input")
     new_hashed_password = hash_password(new_password)
+
     db = get_db()
     cursor = db.cursor()
     cursor.execute("SELECT username FROM users")
-    users = cursor.fetchall()
+    users = dict(cursor.fetchall())
+
+
     if new_user not in users:  # confirm that username is not already taken
         cursor.execute(
             "INSERT INTO users (username, hashed_password) VALUES (?, ?);",
             (new_user, new_hashed_password),
         )
+        db.commit()
+        print("User added successfully")
+
+        # set user to current_user to indicate the user has logged in
+        global current_user
         current_user = new_user
         return redirect("/matches")
-    else:
-        print("Username is already taken. Please enter another username")
+   
+    return "Username is already taken. Please enter another username"
 
 
 @app.get("/matches", endpoint="matches_page_get")
@@ -204,6 +225,7 @@ def results_post():
     )
 
     # Get newsletters saved by user
+    global saved_newsletters
     saved_newsletters = cursor.execute(
         "SELECT newsletter_name FROM newsletters INNER JOIN newsletter_subscriptions ON newsletters.newsletter_id = newsletter_subscriptions.newsletter_id WHERE user_id = ?;",
         (user_id),
