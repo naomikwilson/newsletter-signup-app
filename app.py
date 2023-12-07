@@ -180,24 +180,25 @@ def matches_get():
     return render_template("matches.html")
 
 
-@app.post("/matches", endpoint="matches_page_post")
+@app.route("/matches", methods=["POST"], endpoint="matches_page_post")
 def matches_post():
     selected_categories = ""  # how to get info on which images the user selected?
     # store info for final page w/ matches & buttons to save matches to database
     # may need to add "for" loop to html file (ideally loop through suggestions (dict))
+    global suggestions
     suggestions = get_newsletter_suggestions(selected_categories)
+    return redirect("/results")
 
 
-# for the page where people can add/delete newsletters
-# app.get("/results", endpoint = "results_get")
-# def results_get():
-#     return render_template("results.html")
+app.get("/results", endpoint = "results_get")
+def results_get():
+    return render_template("results.html")
 
 
-# app.post("/results", endpoint = "results_post")
+app.post("/results", endpoint = "results_post")
 def results_post():
-    newsletters_to_add = []  # newsletter to add
-    newsletters_to_delete = []  # newsletter to delete
+    newsletters_to_add = []  # newsletter to add (based on user input)
+    newsletters_to_delete = []  # newsletter to delete (based on user input)
     db = get_db()
     cursor = db.cursor()
     user_id = cursor.execute(
