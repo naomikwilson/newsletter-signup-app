@@ -203,13 +203,6 @@ def matches_post():
 
 @app.get("/dashboard", endpoint="dashboard_get")
 def results_get():
-    return render_template("dashboard.html")
-
-
-@app.post("/dashboard", endpoint="dashboard_post")
-def results_post():
-    newsletters_to_add = []  # newsletter to add (based on user input)
-    newsletters_to_delete = []  # newsletter to delete (based on user input)
     db = get_db()
     cursor = db.cursor()
     user_id = cursor.execute(
@@ -222,6 +215,25 @@ def results_post():
         "SELECT newsletter_name FROM newsletters INNER JOIN newsletter_subscriptions ON newsletters.newsletter_id = newsletter_subscriptions.newsletter_id WHERE user_id = ?;",
         (user_id),
     )
+    return render_template("dashboard.html", saved_newsletters=saved_newsletters)
+
+
+@app.post("/dashboard", endpoint="dashboard_post")
+def results_post():
+    newsletters_to_add = []  # newsletter to add (based on user input)
+    newsletters_to_delete = []  # newsletter to delete (based on user input)
+    db = get_db()
+    cursor = db.cursor()
+    user_id = cursor.execute(
+        "SELECT user_id FROM users WHERE username = ?;", (current_user)
+    )
+
+    # # Get newsletters saved by user
+    # global saved_newsletters
+    # saved_newsletters = cursor.execute(
+    #     "SELECT newsletter_name FROM newsletters INNER JOIN newsletter_subscriptions ON newsletters.newsletter_id = newsletter_subscriptions.newsletter_id WHERE user_id = ?;",
+    #     (user_id),
+    # )
 
     # If there are newsletters that need to be added to the newsletter_subscription table
     if newsletters_to_add:
