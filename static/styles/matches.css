@@ -1,6 +1,6 @@
 
   #matches-body{
-    background-image: url(../images/Matches_background.jpg)
+    background-image: url(../images/Matches_background.jpg); background-repeat: no-repeat;
   }
   
 
