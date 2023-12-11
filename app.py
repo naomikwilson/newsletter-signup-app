@@ -198,15 +198,15 @@ def matches_post():
     global suggestions
     suggestions = get_newsletter_suggestions(selected_categories)
     print(suggestions)
-    return redirect("/results")
+    return redirect("/dashboard")
 
 
-@app.get("/results", endpoint="results_get")
+@app.get("/dashboard", endpoint="dashboard_get")
 def results_get():
-    return render_template("results.html")
+    return render_template("dashboard.html")
 
 
-@app.post("/results", endpoint="results_post")
+@app.post("/dashboard", endpoint="dashboard_post")
 def results_post():
     newsletters_to_add = []  # newsletter to add (based on user input)
     newsletters_to_delete = []  # newsletter to delete (based on user input)
@@ -259,7 +259,7 @@ def results_post():
 
 @app.errorhandler(404)
 def page_not_found(e):
-    return "Not found. 😭"  # can later add a proper 404 error page if there's time
+    return "Not found. 😭"
 
 
 if __name__ == "__main__":
