@@ -244,13 +244,9 @@ def results_post():
     # Get newsletters to delete from database for user
     newsletters_to_delete = request.form.getlist("delete")  
 
-    print(newsletters_to_add)
-    print(newsletters_to_delete)
-
     db = get_db()
     cursor = db.cursor()
     global current_user
-    print(current_user)
     cursor.execute("SELECT user_id FROM users WHERE username = ?;", (current_user,))
     user_id = cursor.fetchone()[0] # Access the first (and only) element in the tuple
 
@@ -263,7 +259,6 @@ def results_post():
                 (newsletter,),
             )
             newsletter_id = cursor.fetchone()[0]
-            print(newsletter_id)
 
             # add user id and newsletter id to database to save suggested newsletter
             cursor.execute(
