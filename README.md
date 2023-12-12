@@ -3,7 +3,7 @@
 
 ## Project Overview 
 
-Our web application generates recommendations for newsletters based on the categories that the user selects; the user can also create an account to save their recommendations and log in later to save additional recommendations or remove current ones from their list. We also have a random fact on the homepage about a historical event that took place on the day and month that the user visits our app. We also hope that more people can reap the benefits of reading news by getting rid of the fear of forgetting which newsletters they subscribed to. 
+Our web application generates recommendations for newsletters based on the categories that the user selects; the user creates an account to generate and save their recommendations and can log in later to save additional recommendations or remove current ones from their list. We also have a random fact on the homepage about a historical event that took place on the day and month that the user visits our app. We also hope that more people can reap the benefits of reading news by getting rid of the fear of forgetting which newsletters they subscribed to. 
 
 
 ## Usage Guidelines  
