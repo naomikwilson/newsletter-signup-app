@@ -1,77 +1,54 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Your Recommendations</title>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your {{username}}</title>
 
-    <link
-      rel="stylesheet"
-      href="{{ url_for('static', filename='styles/dashboard.css')}}"
-    />
-  </head>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/dashboard.css')}}">
+    
+</head>
 
-  <body id="dashboard_body">
-    <div class="dropdown">
-      <a href="{{url_for('home_page')}}"
-        ><button class="dropbtn">Home</button></a
-      >
-      <div class="dropdown-content">
-        <a href="{{url_for('about_page')}}">About us</a>
-        <a href="{{url_for('log_in_page_get')}}">Log in</a>
-      </div>
+<body id="dashboard_body">
+<div class="dropdown">
+    <a href="{{url_for('home_page')}}"><button class="dropbtn">Home</button></a>
+    <div class="dropdown-content">
+      <a href="{{url_for('about_page')}}">About us</a>
+      <a href="{{url_for('log_in_page_get')}}">Log in</a>
+      <a href="{{url_for('matches_page_get')}}">Find newspaper matches</a>
     </div>
-    <div>
-        <h2>{{ username }}'s dashboard</h2>
-
-        {% with messages = get_flashed_messages() %}
-            {% if messages %}
-              <ul class="flashes">
-              {% for message in messages %}
-                <li>{{ message }}</li>
-              {% endfor %}
-                </ul>
-            {% endif %}
-        {% endwith %}
-
-    </div>
+    <h2>{{username}}'s dashboard</h2>
 
     <div id="dashboard">
-      <h2>These are the newsletters you are already subscribed to:</h2>
-      <form action="{{ url_for('dashboard_post') }}" method="post">
-        <h5>
-          Select any newsletters you unsubscribed from and click "Remove" to update
-          dashboard
-        </h5>
-        <div>
-          {% for newsletter in saved_newsletters %}
-          <label>
-            <input type="checkbox" name="delete" value="{{ newsletter }}" /> {{
-            newsletter }}
-          </label>
-          {% endfor %}
-        </div>
-        <div>
-          <button>Remove</button>
-        </div>
-      </form>
+        <h2>These are the newsletters you are already subscribed to:</h2>
+        <form action="{{ url_for('dashboard_post') }}">
+            <h5>select any you are unsubscribed to and click submit to update dashboard</h5>
+            {% for newsletter in saved_newsletters %}
+            <br>
+            <label>
+                <input type="checkbox" name="delete" value="{{ newsletter }}" /> {{ newsletter }}
+            </label>
+            <br>
+            {% endfor %}
+        <button>Remove</button>
+    </form>
     </div>
 
     <div id="matches_suggestions">
-      <h2>Suggested newsletters:</h2>
-      <form action="{{ url_for('dashboard_post') }}" method="post">
-        <div>
-          {% for suggestion in suggestions %}
-          <label>
-            <input type="checkbox" name="add" value="{{ suggestion }}" /> {{
-            suggestion }}: {{ suggestions[suggestion] }}
-          </label>
-          {% endfor %}
-        </div>
-        <div>
-          <button>Add to dashboard</button>
-        </div>
-      </form>
+        <h2>Suggested newsletters:</h2>
+        <form action="{{ url_for('dashboard_post') }}">
+            {% for suggestion in suggestions %}
+            <br>
+            <label>
+                <input type="checkbox" name="add" value="{{ suggestion }}" /> {{ suggestion }}
+            </label>
+            <br>
+            {% endfor %}
+            <button>Add to dashboard</button>
+        </form>
     </div>
-  </body>
+    
+
+
+</body>
 </html>
