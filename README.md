@@ -1,5 +1,5 @@
 # newsletter-signup-app
-### Team members : Naomi Wilson and Justine Zhao
+### Team members: Naomi Wilson and Justine Zhao
 
 ## Project Overview 
 
@@ -13,13 +13,22 @@ Upon visiting our site, the user can learn more about us or they can go straight
 
 ## Dependencies 
 
-The main component of our app, the newsletter recommendation feature, uses a combination of Flask, sqlite3, a newsletter data dictionary, and a “newsletter.db” database. Flask is used to integrate the back-end and front-end aspects of our app using features such as route, get, post, redirect, render_template, request, g (database management), and flash (displaying error messages – requires a special key). Sqlite3 is used to retrieve information from or update the newsletter.db database when a user creates a new account, logs in, or selects newsletters that they want to add/remove from their list. The newsletter data dictionary contains the newsletter names and links corresponding to each of the 7 categories (Current Events, Finance and Markets, Food and Agriculture, Sustainability and the Environment, Science, Health and Medicine, Education) and is used as our primary data source for the project. For the historical events generation component of our app, we used API ninjas as an external resource to get the API key and the random historical fact on the home page. 
+The main component of our app, the newsletter recommendation feature, uses a combination of Flask, sqlite3, a newsletter data dictionary, and a “newsletter.db” database. Flask is used to integrate the back-end and front-end aspects of our app using features such as route, get, post, redirect, render_template, request, g (database management), and flash (displaying error messages – requires a special key). Sqlite3 is used to retrieve information from or update the newsletter.db database when a user creates a new account, logs in, or selects newsletters that they want to add/remove from their list. The newsletter data dictionary contains the newsletter names and links corresponding to each of the 7 categories (Current Events, Finance and Markets, Food and Agriculture, Sustainability and the Environment, Science, Health and Medicine, Education) and is used as our primary data source for the project. We also used libraries such as OS (generate secret key), requests and json (for retrieving the data from the API), random, datetime, and hashlib (hashing the passwords). For the historical events generation component of our app, we used API ninjas as an external resource to get the API key and the random historical fact on the home page (https://api-ninjas.com/api/historicalevents). 
 
 
 ## Project Structure and Collaboration 
 
 In terms of project structure, the main folders for the front-end were static and templates, because it organized all the images and CSS files used for each page. Justine worked on the front-end pertaining to the HTML and CSS side of the project. The most important file would be the app.py, because it has to be run for all the CSS and Python to work on our site. Naomi worked on the back-end pertaining to the SQL, Flask, and Python of the project.  
 
+## Acknowledgments
+In addition to the libraries and API mentioned above, we also used the following resources:
+- flask-app-demo repository by lzblack / Zhi Li on GitHub
+- ChatGPT (per professor's suggestion)
+- Stack Overflow 
+  - https://stackoverflow.com/questions/34902378/where-do-i-get-secret-key-for-flask
+- Geeks for Geeks
+  - https://www.geeksforgeeks.org/random-numbers-in-python/
+  - https://www.geeksforgeeks.org/get-current-date-using-python/ 
 
 ## Reflection 
 
