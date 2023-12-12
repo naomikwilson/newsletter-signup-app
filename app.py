@@ -253,13 +253,23 @@ def results_post():
             )
             newsletter_id = cursor.fetchone()[0]
 
-            # add user id and newsletter id to database to save suggested newsletter
+            # Check if newsletter was already added to user's list
             cursor.execute(
-                "INSERT INTO newsletter_subscriptions (user_id, newsletter_id) VALUES (?, ?);",
+                "SELECT * FROM newsletter_subscriptions WHERE user_id = ? AND newsletter_id = ?;",
                 (user_id, newsletter_id),
             )
-            db.commit()
-            flash("Newsletters successfully added to list", "success")
+            newsletter_already_added = cursor.fetchone()
+
+            if not newsletter_already_added:
+                # add user_id and newsletter_id combination to database to save suggested newsletter
+                cursor.execute(
+                    "INSERT INTO newsletter_subscriptions (user_id, newsletter_id) VALUES (?, ?);",
+                    (user_id, newsletter_id),
+                )
+                db.commit()
+                flash("Newsletter successfully added to list", "success")
+            else:
+                flash("Newsletter already added to list", "error")
 
     # If there are newsletters that need to be removed from the newsletter_subscription table
     if newsletters_to_delete:
@@ -271,13 +281,13 @@ def results_post():
             )
             newsletter_id = cursor.fetchone()[0]
 
-            # delete entry with the corresponding newsletter id and user id
+            # delete entry with the corresponding newsletter_id and user_id
             cursor.execute(
                     "DELETE FROM newsletter_subscriptions WHERE user_id = ? AND newsletter_id = ?;",
                 (user_id, newsletter_id),
             )
             db.commit()
-            flash("Newsletters successfully deleted from list", "success")
+            flash("Newsletter successfully deleted from list", "success")
 
     return redirect("/dashboard")
 
