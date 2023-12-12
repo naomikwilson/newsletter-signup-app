@@ -215,13 +215,16 @@ def results_get():
         "SELECT newsletter_name FROM newsletters INNER JOIN newsletter_subscriptions ON newsletters.newsletter_id = newsletter_subscriptions.newsletter_id WHERE user_id = ?;",
         (user_id),
     )
-    return render_template("dashboard.html", saved_newsletters=saved_newsletters)
+
+    # Newsletter suggestions generated from matches page
+    global suggestions
+    return render_template("dashboard.html", saved_newsletters=saved_newsletters, suggestions=suggestions)
 
 
 @app.post("/dashboard", endpoint="dashboard_post")
 def results_post():
-    newsletters_to_add = []  # newsletter to add (based on user input)
-    newsletters_to_delete = []  # newsletter to delete (based on user input)
+    newsletters_to_add = request.form.getlist("add")  # newsletter to add (based on user input)
+    newsletters_to_delete = request.form.getlist("delete")  # newsletter to delete (based on user input)
     db = get_db()
     cursor = db.cursor()
     user_id = cursor.execute(

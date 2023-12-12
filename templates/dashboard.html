@@ -9,7 +9,7 @@
     
 </head>
 
-<body >
+<body id="dashboard_body">
 <div class="dropdown">
     <a href="{{url_for('home_page')}}"><button class="dropbtn">Home</button></a>
     <div class="dropdown-content">
@@ -21,16 +21,25 @@
 
     <div id="dashboard" style="background-color:antiquewhite; text-align: center; margin-right: 50%; margin-top: 10%; margin-left: 10%;">
         <h2>These are the newsletters you are already subscribed to:</h2>
-        <form action="">
-        <h5>select any you are unsubscribed to and click submit to update dashboard</h5>
+        <form action="{{ url_for('dashboard_post') }}">
+            <h5>select any you are unsubscribed to and click submit to update dashboard</h5>
+            {% for newsletter in saved_newsletters %}
+            <label>
+                <input type="checkbox" name="delete" value="{{ newsletter }}" /> {{ newsletter }}
+            </label>
+            {% endfor %}
         <button>Remove</button>
     </form>
     </div>
 
     <div id="matches_suggestions" style="background-color:antiquewhite; text-align: center; margin-right: 10%; margin-top: 10%; margin-left: 50%;">
         <h2>Suggested newsletters:</h2>
-        <form action="">
-
+        <form action="{{ url_for('dashboard_post') }}">
+            {% for suggestion in suggestions %}
+            <label>
+                <input type="checkbox" name="add" value="{{ suggestion }}" /> {{ suggestion }}
+            </label>
+            {% endfor %}
             <button>Add to dashboard</button>
         </form>
     </div>
