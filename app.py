@@ -205,6 +205,7 @@ def matches_post():
 def results_get():
     db = get_db()
     cursor = db.cursor()
+    global current_user
     user_id = cursor.execute(
         "SELECT user_id FROM users WHERE username = ?;", (current_user)
     )
@@ -227,6 +228,7 @@ def results_post():
     newsletters_to_delete = request.form.getlist("delete")  # newsletter to delete (based on user input)
     db = get_db()
     cursor = db.cursor()
+    global current_user
     user_id = cursor.execute(
         "SELECT user_id FROM users WHERE username = ?;", (current_user)
     )
