@@ -19,7 +19,7 @@
     </div>
     <h2>{{username}}'s dashboard</h2>
 
-    <div id="dashboard" style="background-color:antiquewhite; text-align: center; margin-right: 50%; margin-top: 10%; margin-left: 10%;">
+    <div id="dashboard">
         <h2>These are the newsletters you are already subscribed to:</h2>
         <form action="{{ url_for('dashboard_post') }}">
             <h5>select any you are unsubscribed to and click submit to update dashboard</h5>
@@ -32,7 +32,7 @@
     </form>
     </div>
 
-    <div id="matches_suggestions" style="background-color:antiquewhite; text-align: center; margin-right: 10%; margin-top: 10%; margin-left: 50%;">
+    <div id="matches_suggestions">
         <h2>Suggested newsletters:</h2>
         <form action="{{ url_for('dashboard_post') }}">
             {% for suggestion in suggestions %}

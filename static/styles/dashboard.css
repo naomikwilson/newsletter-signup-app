@@ -42,3 +42,7 @@
   
   /* Change the background color of the dropdown button when the dropdown content is shown */
   .dropdown:hover .dropbtn {background-color: #f7882f;}
+
+  #dashboard {background-color:antiquewhite; text-align: center; margin-right: 50%; margin-top: 10%; margin-left: 10%;}
+
+  #matches_suggestions {background-color:antiquewhite; text-align: center; margin-right: 10%; margin-top: 10%; margin-left: 50%;}
