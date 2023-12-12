@@ -194,16 +194,9 @@ def matches_post():
     selected_categories = request.form.getlist("option")
 
     # Get suggested newsletters (dictionary with name:link pairs)
-    suggestions_and_links = get_newsletter_suggestions(selected_categories)
+    global suggestions # Keep track of suggestions (to be used for dashboard)
+    suggestions = get_newsletter_suggestions(selected_categories)
 
-    # Just get the names of the newsletters
-    newsletter_names = []
-    for name in suggestions_and_links.keys():
-        newsletter_names.append(name)
-
-    # Keep track of suggestions (to be used for dashboard)
-    global suggestions
-    suggestions = newsletter_names
     return redirect("/dashboard")
 
 
