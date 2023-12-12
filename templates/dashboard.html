@@ -24,9 +24,11 @@
         <form action="{{ url_for('dashboard_post') }}">
             <h5>select any you are unsubscribed to and click submit to update dashboard</h5>
             {% for newsletter in saved_newsletters %}
+            <br>
             <label>
                 <input type="checkbox" name="delete" value="{{ newsletter }}" /> {{ newsletter }}
             </label>
+            <br>
             {% endfor %}
         <button>Remove</button>
     </form>
@@ -36,9 +38,11 @@
         <h2>Suggested newsletters:</h2>
         <form action="{{ url_for('dashboard_post') }}">
             {% for suggestion in suggestions %}
+            <br>
             <label>
                 <input type="checkbox" name="add" value="{{ suggestion }}" /> {{ suggestion }}
             </label>
+            <br>
             {% endfor %}
             <button>Add to dashboard</button>
         </form>
