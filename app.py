@@ -191,13 +191,19 @@ def matches_get():
 
 @app.route("/matches", methods=["POST"], endpoint="matches_page_post")
 def matches_post():
-    selected_categories = request.form.getlist("option") 
-    print(selected_categories)
-    # store info for final page w/ matches & buttons to save matches to database
-    # may need to add "for" loop to html file (ideally loop through suggestions (dict))
+    selected_categories = request.form.getlist("option")
+
+    # Get suggested newsletters (dictionary with name:link pairs)
+    suggestions_and_links = get_newsletter_suggestions(selected_categories)
+
+    # Just get the names of the newsletters
+    newsletter_names = []
+    for name in suggestions_and_links.keys():
+        newsletter_names.append(name)
+
+    # Keep track of suggestions (to be used for dashboard)
     global suggestions
-    suggestions = get_newsletter_suggestions(selected_categories)
-    print(suggestions)
+    suggestions = newsletter_names
     return redirect("/dashboard")
 
 
@@ -206,67 +212,86 @@ def results_get():
     db = get_db()
     cursor = db.cursor()
     global current_user
-    user_id = cursor.execute(
-        "SELECT user_id FROM users WHERE username = ?;", (current_user)
-    )
+    cursor.execute("SELECT user_id FROM users WHERE username = ?;", (current_user,))
+    user_id = cursor.fetchone()[0] # Access the first (and only) element in the tuple
 
     # Get newsletters saved by user
-    global saved_newsletters
-    saved_newsletters = cursor.execute(
+    cursor.execute(
         "SELECT newsletter_name FROM newsletters INNER JOIN newsletter_subscriptions ON newsletters.newsletter_id = newsletter_subscriptions.newsletter_id WHERE user_id = ?;",
-        (user_id),
+        (user_id,),
     )
+    saved_newsletters_tuples_list = cursor.fetchall()
+
+    # Transform from a list of tuples to a list
+    saved_newsletters_list = []
+    for newsletter in saved_newsletters_tuples_list:
+        saved_newsletters_list.append(newsletter[0])
 
     # Newsletter suggestions generated from matches page
     global suggestions
-    return render_template("dashboard.html", saved_newsletters=saved_newsletters, suggestions=suggestions)
+    return render_template(
+        "dashboard.html",
+        username=current_user,
+        saved_newsletters=saved_newsletters_list,
+        suggestions=suggestions,
+    )
 
 
-@app.post("/dashboard", endpoint="dashboard_post")
+@app.route("/dashboard", methods=["POST"], endpoint="dashboard_post")
 def results_post():
-    newsletters_to_add = request.form.getlist("add")  # newsletter to add (based on user input)
-    newsletters_to_delete = request.form.getlist("delete")  # newsletter to delete (based on user input)
+    # Get newsletters to add to database for user
+    newsletters_to_add = request.form.getlist("add")
+    # Get newsletters to delete from database for user
+    newsletters_to_delete = request.form.getlist("delete")  
+
+    print(newsletters_to_add)
+    print(newsletters_to_delete)
+
     db = get_db()
     cursor = db.cursor()
     global current_user
-    user_id = cursor.execute(
-        "SELECT user_id FROM users WHERE username = ?;", (current_user)
-    )
-
-    # # Get newsletters saved by user
-    # global saved_newsletters
-    # saved_newsletters = cursor.execute(
-    #     "SELECT newsletter_name FROM newsletters INNER JOIN newsletter_subscriptions ON newsletters.newsletter_id = newsletter_subscriptions.newsletter_id WHERE user_id = ?;",
-    #     (user_id),
-    # )
+    print(current_user)
+    cursor.execute("SELECT user_id FROM users WHERE username = ?;", (current_user,))
+    user_id = cursor.fetchone()[0] # Access the first (and only) element in the tuple
 
     # If there are newsletters that need to be added to the newsletter_subscription table
     if newsletters_to_add:
         for newsletter in newsletters_to_add:
             # get newsletter id of newsletter to add
-            newsletter_id = cursor.execute(
+            cursor.execute(
                 "SELECT newsletter_id FROM newsletters WHERE newsletter_name = ?;",
-                (newsletter),
+                (newsletter,),
             )
+            newsletter_id = cursor.fetchone()[0]
+            print(newsletter_id)
+
             # add user id and newsletter id to database to save suggested newsletter
             cursor.execute(
-                "INSERT INTO newsletter_subscription (user_id, newsletter_id) VALUES (?, ?);",
+                "INSERT INTO newsletter_subscriptions (user_id, newsletter_id) VALUES (?, ?);",
                 (user_id, newsletter_id),
             )
+            db.commit()
+            flash("Newsletters successfully added to list", "success")
 
     # If there are newsletters that need to be removed from the newsletter_subscription table
     if newsletters_to_delete:
         for newsletter in newsletters_to_delete:
             # get newsletter id of newsletter to add
-            newsletter_id = cursor.execute(
+            cursor.execute(
                 "SELECT newsletter_id FROM newsletters WHERE newsletter_name = ?;",
-                (newsletter),
+                (newsletter,),
             )
+            newsletter_id = cursor.fetchone()[0]
+
             # delete entry with the corresponding newsletter id and user id
             cursor.execute(
-                "DELETE FROM newsletter_subscription WHERE user_id = ? AND newsletter_id = ?;",
+                    "DELETE FROM newsletter_subscriptions WHERE user_id = ? AND newsletter_id = ?;",
                 (user_id, newsletter_id),
             )
+            db.commit()
+            flash("Newsletters successfully deleted from list", "success")
+
+    return redirect("/dashboard")
 
 
 """
