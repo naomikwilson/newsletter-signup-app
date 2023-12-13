@@ -1,62 +1,67 @@
 <!DOCTYPE html>
 
-<html lang="en"> 
-
+<html lang="en">
   <head>
-	<meta http-equiv="content-type" content="text/html; charset=UTF-8"> 
-	    <title>Newsletter Cloud</title>
-        <!-- The line below makes the page responsive -->
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" href="{{ url_for('static', filename='styles/homepage.css')}}">
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    <title>Newsletter Cloud</title>
+    <!-- The line below makes the page responsive -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='styles/homepage.css')}}"
+    />
 
-
-	
-        <style>
-          
-          @keyframes fadeInAnimation {
-              0% {
-                  opacity: 0;
-              }
-              100% {
-                  opacity: 90%;
-              }
-          }
-      </style>
+    <style>
+      @keyframes fadeInAnimation {
+        0% {
+          opacity: 0;
+        }
+        100% {
+          opacity: 90%;
+        }
+      }
+    </style>
   </head>
 
   <body id="home-body">
-	<!-- Your HTML goes here -->
-    <!-- These lines below are for the menu. They would 
-    be present on every page, at the top.-->
-	
     <div class="dropdown">
-      <a href="{{url_for('home_page')}}"><button class="dropbtn">Home</button></a>
+      <a href="{{url_for('home_page')}}"
+        ><button class="dropbtn">Home</button></a
+      >
       <div class="dropdown-content">
         <a href="{{url_for('about_page')}}">About us</a>
         <a href="{{url_for('log_in_page_get')}}">Log In</a>
-        <a href="{{url_for('dashboard_get')}}">Find newspaper matches</a>
       </div>
-      </div>
+    </div>
     <div class="block_1">
-     <h1 style="font-size: 45px;"> &nbsp Newsletter Cloud</h1> 
+      <h1 style="font-size: 45px">&nbsp Newsletter Cloud</h1>
       <h3>&nbsp Created by Naomi Wilson and Justine Zhao</h3>
     </div>
     <div>
-     
-      <div>
-        
-        
-      </div>
+      <div></div>
     </div>
-    
+
     <div class="intro_block">
-      <h1 id="introduction"> &nbspINTRODUCTION</h1>
-      <p id="intro_paragraph" style="font-size: 20px;">The Newsletter Cloud is a platform that organizes and established a dashboard of which users can view and edit which newsletters subscribed to. We also hope that more people can reap the benefits of reading news by getting rid of the fear of forgetting which newsletters they subscribed to. </p>
+      <h1 id="introduction">&nbspINTRODUCTION</h1>
+      <p id="intro_paragraph" style="font-size: 20px">
+        The Newsletter Cloud is a platform that organizes and established a
+        dashboard of which users can view and edit which newsletters subscribed
+        to. We also hope that more people can reap the benefits of reading news
+        by getting rid of the fear of forgetting which newsletters they
+        subscribed to.
+      </p>
 
       <a id="learn_more" href="{{url_for('about_page')}}">Learn more</a>
-      <a id="Sign_up" href="{{url_for('log_in_page_get')}}">Create an account | Log in </a>
-      <p style="font-style: italic;"> Historical fact: on this month and day in year {{ year }}, {{ fact }} </p>
-  </div>
-  <h6 id="footer">Newsletter Cloud | Computer science for business students | Professor Zhi Li</h6>
+      <a id="Sign_up" href="{{url_for('log_in_page_get')}}"
+        >Create an account | Log in
+      </a>
+      <p style="font-style: italic">
+        Historical fact: on this month and day in year {{ year }}, {{ fact }}
+      </p>
+    </div>
+    <h6 id="footer">
+      Newsletter Cloud | Computer Science for Business Students | Professor Zhi
+      Li
+    </h6>
   </body>
 </html>
