@@ -82,6 +82,8 @@ def get_all_newsletter_names():
     
     return all_newsletter_names
 
+# def get_links
+
 def main():
     print("List of all newsletters:")
     print(get_all_newsletter_names())
