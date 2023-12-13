@@ -3,7 +3,7 @@
 
 ## Project Overview 
 
-Our web application generates recommendations for newsletters (which includes the names and the link to subscribe) based on the categories that the user selects; the user creates an account to generate and save their recommendations and can log in later to save additional recommendations or remove current ones from their list. We also have a random fact on the homepage about a historical event that took place on the day and month that the user visits our app. We also hope that more people can reap the benefits of reading news by getting rid of the fear of forgetting which newsletters they subscribed to. 
+Our web application generates recommendations for newsletters based on the categories that the user selects; the user can also create an account to save their recommendations and log in later to save additional recommendations or remove current ones from their list. We also have a random fact on the homepage about a historical event that took place on the day and month that the user visits our app. We also hope that more people can reap the benefits of reading news by getting rid of the fear of forgetting which newsletters they subscribed to. 
 
 
 ## Usage Guidelines  
@@ -18,7 +18,7 @@ The main component of our app, the newsletter recommendation feature, uses a com
 
 ## Project Structure and Collaboration 
 
-In terms of project structure, the main folders for the front-end were static and templates, because it organized all the images and CSS files used for each page. Justine worked on the front-end pertaining to the HTML and CSS side of the project. The most important file would be the app.py, because it has to be run for all the CSS and Python to work on our site. Naomi worked on the back-end pertaining to the SQL, Flask, and Python of the project (and some of the front-end HTML code related to showing sucess/error messages and displaying other information).  
+In terms of project structure, the main folders for the front-end were static and templates, because it organized all the images and CSS files used for each page. Justine worked on the front-end pertaining to the HTML and CSS side of the project. The most important file would be the app.py, because it has to be run for all the CSS and Python to work on our site. Naomi worked on the back-end pertaining to the SQL, Flask, and Python of the project.  
 
 ## Acknowledgments
 In addition to the libraries and API mentioned above, we also used the following resources:
